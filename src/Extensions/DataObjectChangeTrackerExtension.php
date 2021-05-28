@@ -3,7 +3,7 @@
 
 namespace SilverStripe\Headless\Extensions;
 
-use SilverStripe\Gatsby\GraphQL\ModelLoader;
+use SilverStripe\Headless\GraphQL\ModelLoader;
 use SilverStripe\Headless\Services\ChangeTracker;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;

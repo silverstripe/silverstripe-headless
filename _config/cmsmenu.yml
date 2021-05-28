@@ -6,6 +6,6 @@ SilverStripe\Admin\LeftAndMain:
     Headless:
       icon: 'integration'
       children:
-        - SilverStripe-Gatsby-Admins-AwaitingPublicationAdmin
-        - SilverStripe-Gatsby-Admins-PublishHistoryAdmin
-        - SilverStripe-Gatsby-Admins-WebhooksAdmin
+        - SilverStripe-Headless-Admins-AwaitingPublicationAdmin
+        - SilverStripe-Headless-Admins-PublishHistoryAdmin
+        - SilverStripe-Headless-Admins-WebhooksAdmin

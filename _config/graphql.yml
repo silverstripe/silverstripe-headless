@@ -3,12 +3,7 @@ Name: silverstripe-headless-graphql
 ---
 SilverStripe\Control\Director:
   rules:
-    'graphql': '%$SilverStripe\GraphQL\Controller.gatsby'
-SilverStripe\Core\Injector\Injector:
-  SilverStripe\GraphQL\Controller.gatsby:
-    class: SilverStripe\GraphQL\Controller
-    constructor:
-      schema: gatsby
+    'graphql': '%$SilverStripe\GraphQL\Controller.default'
 SilverStripe\GraphQL\Schema\Schema:
   schemas:
     default:

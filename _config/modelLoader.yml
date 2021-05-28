@@ -1,7 +1,7 @@
 ---
 Name: silverstripe-headless-modelloader
 ---
-SilverStripe\Gatsby\GraphQL\ModelLoader:
+SilverStripe\Headless\GraphQL\ModelLoader:
   excluded_dataobjects:
     security: 'SilverStripe\Security\*'
     versioned: 'SilverStripe\Versioned\*'
@@ -15,6 +15,6 @@ Name: headless-modelloader-exclude-snapshots
 Only:
   moduleexists: 'silverstripe/versioned-snapshots'
 ---
-SilverStripe\Gatsby\GraphQL\ModelLoader:
+SilverStripe\Headless\GraphQL\ModelLoader:
   excluded_dataobjects:
     snapshots: 'SilverStripe\Snapshots\*'
