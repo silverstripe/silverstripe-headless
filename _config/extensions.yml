@@ -1,0 +1,9 @@
+---
+Name: silverstripe-headless-extensions
+---
+SilverStripe\ORM\DataObject:
+  extensions:
+    - SilverStripe\Headless\Extensions\DataObjectChangeTrackerExtension
+    - SilverStripe\Headless\Extensions\DataObjectHashExtension
+    - SilverStripe\Headless\Extensions\DataObjectNavigationExtension
+    - SilverStripe\Headless\Extensions\Content404Extension

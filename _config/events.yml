@@ -1,0 +1,13 @@
+---
+Name: silverstripe-headless-events
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\EventDispatcher\Dispatch\Dispatcher:
+    properties:
+      handlers:
+        contentChanged:
+          on: ['trackedContentChanged']
+          handler: '%$SilverStripe\Headless\Handler\ContentUpdateHandler'
+        gatsbySchemaBuild:
+          on: ['graphqlSchemaBuild']
+          handler: '%$SilverStripe\Headless\Handler\ClearSchemaCache'

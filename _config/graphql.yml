@@ -1,0 +1,17 @@
+---
+Name: silverstripe-gatsby
+---
+SilverStripe\Control\Director:
+  rules:
+    'graphql': '%$SilverStripe\GraphQL\Controller.gatsby'
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\GraphQL\Controller.gatsby:
+    class: SilverStripe\GraphQL\Controller
+    constructor:
+      schema: gatsby
+SilverStripe\GraphQL\Schema\Schema:
+  schemas:
+    default:
+      src:
+        - 'silverstripe/silverstripe-headless: _graphql'
+

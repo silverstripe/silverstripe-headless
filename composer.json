@@ -1,0 +1,32 @@
+{
+  "name": "silverstripe/silverstripe-headless",
+  "description": "Silverstripe CMS headless features",
+  "type": "silverstripe-vendormodule",
+  "license": "MIT",
+  "keywords": [
+    "silverstripe",
+    "headless"
+  ],
+  "authors": [
+    {
+      "name": "Uncle Cheese"
+    }
+  ],
+  "require": {
+    "silverstripe/cms": "^4.4",
+    "silverstripe/graphql": "4.x-dev",
+    "silverstripe/cms-events": "*",
+    "guzzlehttp/guzzle": "~6.0",
+    "silverstripe/cms-events": "*",
+    "unclecheese/display-logic": "~2.0",
+    "sminnee/silverstripe-apikey": "dev-master",
+    "symbiote/silverstripe-grouped-cms-menu": "^4"
+  },
+  "autoload": {
+    "psr-4": {
+      "SilverStripe\\Headless\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
