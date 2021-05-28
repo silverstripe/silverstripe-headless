@@ -3,7 +3,7 @@
 
 namespace SilverStripe\Headless\Model;
 
-use SilverStripe\Gatsby\Services\ChangeTracker;
+use SilverStripe\Headless\Services\ChangeTracker;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
 use SilverStripe\Versioned\Versioned;

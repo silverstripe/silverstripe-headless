@@ -1,5 +1,5 @@
 ---
-Name: headless-routes
+Name: silverstripe-headless-routes
 After: '#modelascontrollerroutes'
 ---
 SilverStripe\Control\Director:

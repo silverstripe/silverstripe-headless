@@ -1,3 +1,6 @@
+---
+Name: silverstripe-headless-auth
+---
 SilverStripe\Core\Injector\Injector:
   SilverStripe\Control\Director:
     properties:

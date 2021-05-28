@@ -5,8 +5,6 @@ namespace SilverStripe\Headless\Model;
 
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\TabSet;
 
 class PublishEvent extends DataObject
 {

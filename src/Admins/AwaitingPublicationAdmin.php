@@ -8,7 +8,7 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
-use SilverStripe\Gatsby\Model\PublishQueueItem;
+use SilverStripe\Headless\Model\PublishQueueItem;
 use SilverStripe\Versioned\Versioned;
 
 class AwaitingPublicationAdmin extends ModelAdmin

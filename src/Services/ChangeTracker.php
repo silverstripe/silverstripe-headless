@@ -8,8 +8,8 @@ use SilverStripe\Assets\File;
 use SilverStripe\Core\Injector\Injectable;
 use SilverStripe\EventDispatcher\Dispatch\Dispatcher;
 use SilverStripe\EventDispatcher\Symfony\Event;
-use SilverStripe\Gatsby\Extensions\DataObjectExtension;
-use SilverStripe\Gatsby\Model\PublishQueueItem;
+use SilverStripe\Headless\Extensions\DataObjectHashExtension;
+use SilverStripe\Headless\Model\PublishQueueItem;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ValidationException;
 
@@ -48,7 +48,7 @@ class ChangeTracker
     }
 
     /**
-     * @param DataObject&DataObjectExtension $dataObject
+     * @param DataObject&DataObjectHashExtension $dataObject
      * @param string $event
      * @param string $stage
      */

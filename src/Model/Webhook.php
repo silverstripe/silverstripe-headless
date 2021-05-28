@@ -12,7 +12,7 @@ use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextField;
-use SilverStripe\Gatsby\Admins\WebhooksAdmin;
+use SilverStripe\Headless\Admins\WebhooksAdmin;
 use SilverStripe\ORM\ArrayLib;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\ValidationResult;

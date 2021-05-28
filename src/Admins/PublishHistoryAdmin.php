@@ -8,8 +8,8 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
-use SilverStripe\Gatsby\Model\PublishEvent;
-use SilverStripe\Gatsby\Model\PublishQueueItem;
+use SilverStripe\Headless\Model\PublishEvent;
+use SilverStripe\Headless\Model\PublishQueueItem;
 
 class PublishHistoryAdmin extends ModelAdmin
 {
