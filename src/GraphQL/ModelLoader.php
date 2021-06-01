@@ -52,9 +52,7 @@ class ModelLoader implements SchemaUpdater
 
                 if ($sng instanceof File) {
                     $model
-                        ->addField('absoluteLink', 'String')
-                        ->addField('hash', 'String')
-                        ->addField('filename', 'String');
+                        ->addField('absoluteLink', 'String');
                 }
                 if ($sng instanceof SiteTree) {
                     $modelName = $schema->getConfig()->getTypeNameForClass(SiteTree::class);
