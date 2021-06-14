@@ -14,10 +14,9 @@
   ],
   "require": {
     "silverstripe/cms": "^4.4",
-    "silverstripe/graphql": "4.x-dev",
+    "silverstripe/graphql": "dev-pulls/master/_extendsive-refactor",
     "silverstripe/cms-events": "*",
     "guzzlehttp/guzzle": "~6.0",
-    "silverstripe/cms-events": "*",
     "unclecheese/display-logic": "~2.0",
     "sminnee/silverstripe-apikey": "dev-master",
     "symbiote/silverstripe-grouped-cms-menu": "^4"
