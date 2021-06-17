@@ -50,6 +50,10 @@ class ModelLoader implements SchemaUpdater
                 $model->addAllFields();
                 $sng = Injector::inst()->get($model->getModel()->getSourceClass());
 
+                if ($sng instanceof SiteTree) {
+                    $interfaceName = InterfaceBuilder::interfaceName($model->getName(), $schema->getConfig());
+                    $model->addField('children', '[SiteTree]');
+                }
                 if ($sng instanceof File) {
                     $model
                         ->addField('absoluteLink', 'String');

@@ -1,5 +1,6 @@
 execute:
   - SilverStripe\Headless\GraphQL\ModelLoader
+  - SilverStripe\Headless\GraphQL\OperationLoader
 modelConfig:
   DataObject:
     type_formatter: 'SilverStripe\Core\ClassInfo::shortName'
@@ -16,6 +17,11 @@ modelConfig:
         plugins:
           filter: true
           readVersion: false
+          getByLink:
+            after: filter
+            before: paginateList
       readOne:
         plugins:
           readVersion: false
+          getByLink:
+            after: filter
