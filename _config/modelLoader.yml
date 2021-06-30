@@ -2,14 +2,12 @@
 Name: silverstripe-headless-modelloader
 ---
 SilverStripe\Headless\GraphQL\ModelLoader:
-  excluded_dataobjects:
-    security: 'SilverStripe\Security\*'
-    versioned: 'SilverStripe\Versioned\*'
-    shortcodes: 'SilverStripe\Assets\Shortcodes\*'
-    siteTreeLink: 'SilverStripe\CMS\Model\SiteTreeLink'
-    apiKey: 'Sminnee\ApiKey\*'
-    errorPage: 'SilverStripe\ErrorPage\*'
-    folder: 'SilverStripe\Assets\Folder'
+  included_dataobjects:
+    page: 'Page'
+    cms: 'SilverStripe\CMS\Model\*'
+    siteconfig: 'SilverStripe\SiteConfig\*'
+    assets: 'SilverStripe\Assets\*'
+    elemental: 'DNADesign\Elemental\Models\*'
 ---
 Name: headless-modelloader-exclude-snapshots
 Only:

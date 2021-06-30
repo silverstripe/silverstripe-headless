@@ -14,7 +14,7 @@
   ],
   "require": {
     "silverstripe/cms": "^4.4",
-    "silverstripe/graphql": "dev-pulls/master/_extendsive-refactor",
+    "silverstripe/graphql": "4.x-dev",
     "silverstripe/cms-events": "*",
     "guzzlehttp/guzzle": "~6.0",
     "unclecheese/display-logic": "~2.0",
