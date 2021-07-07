@@ -56,7 +56,7 @@ class WebhooksAdmin extends ModelAdmin
 
         $response = $webhook->invoke();
         $code = $response->getStatusCode();
-        if($code === 200) {
+        if($code >= 200 && $code < 300) {
             $this->getResponse()->addHeader('X-Status', 'Success!');
             return $this->redirectBack();
         } else {
