@@ -16,12 +16,10 @@ modelConfig:
       read:
         plugins:
           filter: true
-          readVersion: false
           getByLink:
             after: filter
             before: paginateList
       readOne:
         plugins:
-          readVersion: false
           getByLink:
             after: filter

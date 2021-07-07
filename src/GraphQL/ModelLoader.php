@@ -48,6 +48,8 @@ class ModelLoader implements SchemaUpdater
         foreach ($classes as $class) {
             $schema->addModelbyClassName($class, function (ModelType $model) use ($schema) {
                 $model->addAllFields();
+                $model->addOperation('read');
+                $model->addOperation('readOne');
                 $sng = Injector::inst()->get($model->getModel()->getSourceClass());
 
                 if ($sng instanceof SiteTree) {
