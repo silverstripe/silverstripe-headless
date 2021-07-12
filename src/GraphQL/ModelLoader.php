@@ -53,8 +53,11 @@ class ModelLoader implements SchemaUpdater
                 $sng = Injector::inst()->get($model->getModel()->getSourceClass());
 
                 if ($sng instanceof SiteTree) {
-                    $interfaceName = InterfaceBuilder::interfaceName($model->getName(), $schema->getConfig());
-                    $model->addField('children', '[SiteTree]');
+                    $model->addField('children', '[SiteTree!]!');
+                    $model
+                        ->addField('title', 'String!')
+                        ->addField('menuTitle', 'String!');
+
                 }
                 if ($sng instanceof File) {
                     $model
@@ -64,14 +67,14 @@ class ModelLoader implements SchemaUpdater
                     $modelName = $schema->getConfig()->getTypeNameForClass(SiteTree::class);
                     $interfaceName = InterfaceBuilder::interfaceName($modelName, $schema->getConfig());
                     $model->addField('breadcrumbs', [
-                        'type' => "[$interfaceName]",
+                        'type' => "[{$interfaceName}!]!",
                         'property' => 'NavigationPath',
                     ]);
                 }
 
                 // Special case for link
                 if ($model->getModel()->hasField('link')) {
-                    $model->addField('link', 'String');
+                    $model->addField('link', 'String!');
                 }
             });
         }

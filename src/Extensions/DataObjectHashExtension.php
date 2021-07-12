@@ -40,6 +40,7 @@ class DataObjectHashExtension extends DataExtension
     }
 
     /**
+     * @todo Maybe move this to the gatsby module. NextJS doesn't have much use for it
      * @return array
      * @throws SchemaBuilderException
      */

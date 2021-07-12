@@ -10,6 +10,7 @@ use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Headless\Model\Webhook;
+use SilverStripe\Security\SecurityToken;
 
 class WebhooksAdmin extends ModelAdmin
 {
@@ -49,6 +50,11 @@ class WebhooksAdmin extends ModelAdmin
     public function invoke(HTTPRequest $request)
     {
         $id = $request->getVar('id');
+        $token = $request->getVar('token');
+        if (!SecurityToken::inst()->check($token)) {
+            $this->httpError(403, 'Invalid token');
+            return;
+        }
         $webhook = Webhook::get()->byID($id);
         if (!$webhook) {
             return $this->redirectBack();

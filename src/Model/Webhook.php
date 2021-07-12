@@ -19,6 +19,7 @@ use SilverStripe\ORM\ValidationResult;
 use SilverStripe\Security\Permission;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TabSet;
+use SilverStripe\Security\SecurityToken;
 
 class Webhook extends DataObject
 {
@@ -80,7 +81,11 @@ class Webhook extends DataObject
     {
         $testLink = WebhooksAdmin::singleton()->Link(Path::join(
             str_replace('\\', '-', static::class),
-            'invoke?id=' . $this->ID
+            sprintf(
+                'invoke?id=%s&token=%s',
+                $this->ID,
+                SecurityToken::inst()->getValue()
+            )
         ));
         $fields = FieldList::create(TabSet::create('Root'));
         $fields->addFieldsToTab('Root.Main', [
