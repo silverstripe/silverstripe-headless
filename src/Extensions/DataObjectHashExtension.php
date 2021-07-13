@@ -33,9 +33,6 @@ class DataObjectHashExtension extends DataExtension
      */
     public function getHashID(): ?string
     {
-        if (!$this->owner->exists()) {
-            return null;
-        }
         return static::createHashID($this->owner->ClassName, $this->owner->ID);
     }
 

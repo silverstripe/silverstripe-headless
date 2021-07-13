@@ -54,10 +54,17 @@ class ModelLoader implements SchemaUpdater
 
                 if ($sng instanceof SiteTree) {
                     $model->addField('children', '[SiteTree!]!');
-                    $model
-                        ->addField('title', 'String!')
-                        ->addField('menuTitle', 'String!');
-
+                    // Keep the base navigation query in its own space so users can customise
+                    // "children" and "parent." This could also be done with aliases, but
+                    // this allows for a really straightforward generation of a types definition file
+                    $model->addField('navChildren', [
+                        'type' => '[SiteTree!]!',
+                        'property' => 'Children',
+                    ]);
+                    $model->addField('navParent', [
+                        'type' => 'SiteTree',
+                        'property' => 'Parent',
+                    ]);
                 }
                 if ($sng instanceof File) {
                     $model

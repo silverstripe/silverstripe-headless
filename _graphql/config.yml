@@ -6,7 +6,7 @@ modelConfig:
     type_formatter: 'SilverStripe\Core\ClassInfo::shortName'
     base_fields:
       ID: ID!
-      HashID: String
+      HashID: String!
       TypeAncestry: '[[String]]'
     plugins:
       versioning: false
