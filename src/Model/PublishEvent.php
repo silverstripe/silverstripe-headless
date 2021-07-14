@@ -15,7 +15,7 @@ class PublishEvent extends DataObject
     private static $db = [
         'Duration' => 'Int',
         'Status' => "Enum(
-            '" . self::STATUS_PENDING . "," . self::STATUS_PENDING . "," . self::STATUS_FAILURE ."',
+            '" . self::STATUS_PENDING . "," . self::STATUS_SUCCESS . "," . self::STATUS_FAILURE ."',
             '" . self::STATUS_PENDING .
         "')"
     ];

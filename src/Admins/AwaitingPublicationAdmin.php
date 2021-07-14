@@ -5,9 +5,11 @@ namespace SilverStripe\Headless\Admins;
 
 use SilverStripe\Admin\ModelAdmin;
 use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
+use SilverStripe\Headless\GridField\PublishButton;
 use SilverStripe\Headless\Model\PublishQueueItem;
 use SilverStripe\Versioned\Versioned;
 
@@ -46,13 +48,19 @@ class AwaitingPublicationAdmin extends ModelAdmin
     public function getList()
     {
         $list = parent::getList();
-        if ($this->modelClass === PublishQueueItem::class) {
-            return $list->filter([
-                'Stage' => Versioned::LIVE,
-                'PublishEventID' => 0,
-            ]);
-        }
-        return $list;
+
+        return $list->filter([
+            'Stage' => Versioned::LIVE,
+            'PublishEventID' => 0,
+        ]);
+    }
+
+    protected function getGridFieldConfig(): GridFieldConfig
+    {
+        $config = parent::getGridFieldConfig();
+        $config->addComponent(PublishButton::create());
+
+        return $config;
     }
 
     public function getManagedModels()
