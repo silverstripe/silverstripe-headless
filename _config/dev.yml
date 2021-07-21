@@ -1,0 +1,9 @@
+---
+Name: headless-dev
+---
+SilverStripe\Dev\DevelopmentAdmin:
+  registered_controllers:
+    'generate-included-classes':
+      controller: SilverStripe\Headless\Dev\HeadlessAdmin
+      links:
+        'generate-included-classes': 'Provides a form to generate included classes in your headless API'
