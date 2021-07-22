@@ -53,16 +53,16 @@ class ModelLoader implements SchemaUpdater
                 $sng = Injector::inst()->get($model->getModel()->getSourceClass());
 
                 if ($sng instanceof SiteTree) {
-                    $model->addField('children', '[SiteTree!]!');
+                    $model->addField('children', '[SiteTreeInterface!]!');
                     // Keep the base navigation query in its own space so users can customise
                     // "children" and "parent." This could also be done with aliases, but
                     // this allows for a really straightforward generation of a types definition file
                     $model->addField('navChildren', [
-                        'type' => '[SiteTree!]!',
+                        'type' => '[SiteTreeInterface!]!',
                         'property' => 'Children',
                     ]);
                     $model->addField('navParent', [
-                        'type' => 'SiteTree',
+                        'type' => 'SiteTreeInterface',
                         'property' => 'Parent',
                     ]);
                 }
