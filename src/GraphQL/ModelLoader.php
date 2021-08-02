@@ -80,7 +80,7 @@ class ModelLoader implements SchemaUpdater
                 }
 
                 // Special case for link
-                if ($model->getModel()->hasField('link')) {
+                if ($model->getModel()->hasField('link') && !$model->getFieldByName('link')) {
                     $model->addField('link', 'String!');
                 }
             });

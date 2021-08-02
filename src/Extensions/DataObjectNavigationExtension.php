@@ -9,6 +9,16 @@ use SilverStripe\ORM\Hierarchy\Hierarchy;
 
 class DataObjectNavigationExtension extends DataExtension
 {
+    public function getCleanLink(): ?string
+    {
+        if (!$this->owner->hasMethod('Link')) {
+            return null;
+        }
+        $link = $this->owner->Link();
+        $clean = preg_replace('#^/|/$#', '', $link);
+        
+        return empty($clean) ? '/' : $clean;
+    }
 
     /**
      * @return array|null
