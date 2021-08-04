@@ -16,9 +16,10 @@ class DataObjectNavigationExtension extends DataExtension
         }
         $link = $this->owner->Link();
         $clean = preg_replace('#^/|/$#', '', $link);
-        
+
         return empty($clean) ? '/' : $clean;
     }
+
 
     /**
      * @return array|null

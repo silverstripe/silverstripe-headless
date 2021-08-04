@@ -8,6 +8,7 @@ modelConfig:
       ID: ID!
       HashID: String!
       TypeAncestry: '[[String]]'
+      exists: Boolean!
     plugins:
       versioning: false
       inheritance:
