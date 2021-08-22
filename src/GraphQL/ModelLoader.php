@@ -59,6 +59,9 @@ class ModelLoader implements SchemaUpdater
                     $model->addField('breadcrumbs', [
                         'type' => "[{$interfaceName}!]!",
                         'property' => 'NavigationPath',
+                        'plugins' => [
+                            'paginateList' => false,
+                        ]
                     ]);
 
                     $model->addField('children', "[$interfaceName!]!");

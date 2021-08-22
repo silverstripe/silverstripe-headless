@@ -3,6 +3,7 @@
 
 namespace SilverStripe\Headless\Extensions;
 
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataExtension;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\Hierarchy\Hierarchy;
@@ -24,7 +25,7 @@ class DataObjectNavigationExtension extends DataExtension
     /**
      * @return array|null
      */
-    public function getNavigationPath(): ?array
+    public function getNavigationPath(): ?ArrayList
     {
         if (!$this->owner->hasExtension(Hierarchy::class)) {
             return null;
@@ -37,7 +38,7 @@ class DataObjectNavigationExtension extends DataExtension
         }
         $crumbs[] = $this->owner;
 
-        return $crumbs;
+        return ArrayList::create($crumbs);
     }
 
 }
