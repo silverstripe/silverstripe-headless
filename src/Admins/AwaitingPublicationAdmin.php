@@ -11,6 +11,7 @@ use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
 use SilverStripe\Headless\GridField\PublishButton;
 use SilverStripe\Headless\Model\PublishQueueItem;
+use SilverStripe\ORM\DataList;
 use SilverStripe\Versioned\Versioned;
 
 class AwaitingPublicationAdmin extends ModelAdmin
@@ -45,14 +46,12 @@ class AwaitingPublicationAdmin extends ModelAdmin
         return $grid;
     }
 
-    public function getList()
+    /**
+     * @return DataList
+     */
+    public function getList(): DataList
     {
-        $list = parent::getList();
-
-        return $list->filter([
-            'Stage' => Versioned::LIVE,
-            'PublishEventID' => 0,
-        ]);
+        return PublishQueueItem::getQueued();
     }
 
     protected function getGridFieldConfig(): GridFieldConfig

@@ -4,6 +4,7 @@
 namespace SilverStripe\Headless\Model;
 
 use SilverStripe\Headless\Services\ChangeTracker;
+use SilverStripe\ORM\DataList;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\Security\Permission;
 use SilverStripe\Versioned\Versioned;
@@ -61,6 +62,16 @@ class PublishQueueItem extends DataObject
      */
     private static $default_sort = 'Created DESC';
 
+    /**
+     * @return DataList
+     */
+    public static function getQueued(): DataList
+    {
+        return static::get()->filter([
+            'Stage' => Versioned::LIVE,
+            'PublishEventID' => 0,
+        ]);
+    }
 
     /**
      * @param null

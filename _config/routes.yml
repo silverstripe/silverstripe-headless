@@ -4,4 +4,5 @@ After: '#modelascontrollerroutes'
 ---
 SilverStripe\Control\Director:
   rules:
+    'hooks': '%$SilverStripe\Headless\Controllers\IncomingWebhookController'
     '': '->admin'

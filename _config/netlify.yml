@@ -1,0 +1,13 @@
+---
+Name: headless-netlify
+Only:
+  envvarset: NETLIFY_JWS_SECRET
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\Headless\Services\NetlifyTokenValidator:
+    constructor:
+      secret: '`NETLIFY_JWS_SECRET`'
+SilverStripe\Headless\Controllers\IncomingWebhookController:
+  properties:
+    TokenValidator: '%$SilverStripe\Headless\Services\NetlifyTokenValidator'
+

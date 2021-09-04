@@ -21,10 +21,13 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TabSet;
 use SilverStripe\Security\SecurityToken;
 
-class Webhook extends DataObject
+class OutgoingWebhook extends DataObject
 {
     const EVENT_PREVIEW = 'PREVIEW';
     const EVENT_PUBLISH = 'PUBLISH';
+
+    const PUBLISH_OPTIMISTIC = 'OPTIMISTIC';
+    const PUBLISH_DEFER = 'DEFER';
 
     /**
      * @var array
@@ -34,6 +37,7 @@ class Webhook extends DataObject
         'URL' => 'Varchar(255)',
         'Method' => "Enum('GET, POST', 'POST')",
         'Event' => "Enum('" . self::EVENT_PREVIEW . ", " . self::EVENT_PUBLISH . "', '" . self::EVENT_PREVIEW . "')",
+        'PublishBehaviour' => "Enum('" . self::PUBLISH_OPTIMISTIC . ", " . self::PUBLISH_DEFER . "', '" . self::PUBLISH_DEFER . "')",
         'UseJSON' => 'Boolean',
         'JSONPayload' => 'Text',
     ];
@@ -50,17 +54,17 @@ class Webhook extends DataObject
     /**
      * @var string
      */
-    private static $table_name = 'Webhook';
+    private static $table_name = 'OutgoingWebhook';
 
     /**
      * @var string
      */
-    private static $singular_name = 'Webhook';
+    private static $singular_name = 'Outgoing Webhook';
 
     /**
      * @var string
      */
-    private static $plural_name = 'Webhooks';
+    private static $plural_name = 'Outgoing Webhooks';
 
     /**
      * @var string
@@ -89,20 +93,29 @@ class Webhook extends DataObject
         ));
         $fields = FieldList::create(TabSet::create('Root'));
         $fields->addFieldsToTab('Root.Main', [
-            TextField::create('Title', 'Webhook label (for reference only)'),
-            TextField::create('URL', 'Webhook URL (beginning with https://)'),
+            TextField::create('Title', 'OutgoingWebhook label (for reference only)'),
+            TextField::create('URL', 'OutgoingWebhook URL (beginning with https://)'),
             DropdownField::create('Method', 'Request method', ArrayLib::valuekey(['GET', 'POST'])),
             CheckboxField::create('UseJSON', 'Include a JSON payload'),
             TextField::create('JSONPayload', 'JSON Payload')
                 ->displayIf('UseJSON')
-                    ->isChecked()
-                    ->andIf('Method')
-                        ->isEqualTo('POST')
+                ->isChecked()
+                ->andIf('Method')
+                ->isEqualTo('POST')
                 ->end(),
+
             DropdownField::create('Event', 'Webhook gets called on', ArrayLib::valuekey([
                 self::EVENT_PREVIEW,
                 self::EVENT_PUBLISH,
             ])),
+            DropdownField::create('PublishBehaviour', 'Publish behaviour', [
+                self::PUBLISH_OPTIMISTIC => 'Optimistic (mark publish complete on successful request)',
+                self::PUBLISH_DEFER => 'Defer (mark publish "pending" until incoming success webhook is                         called)',
+            ])
+                ->setDescription('See the "incoming webhooks" tab')
+                ->displayIf('Event')
+                    ->isEqualTo(self::EVENT_PUBLISH)
+                ->end(),
             LiteralField::create(
                 'invoke',
                 '<a class="btn font-icon-rocket action btn-outline-primary" href="' . $testLink . '">Invoke webhook</a>'
@@ -126,6 +139,10 @@ class Webhook extends DataObject
 
         if ($this->UseJSON && $this->JSONPayload && $this->Method !== 'POST') {
             $result->addFieldError('UseJSON', 'JSON payloads are only allowed on POST requests');
+        }
+
+        if (static::get()->filter('Event', $this->Event)->exists()) {
+            $result->addFieldError('Event', 'A webhook for this event already exists.');
         }
 
         return $result;

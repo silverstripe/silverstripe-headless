@@ -9,7 +9,8 @@ use SilverStripe\Forms\GridField\GridField;
 use SilverStripe\Forms\GridField\GridFieldExportButton;
 use SilverStripe\Forms\GridField\GridFieldImportButton;
 use SilverStripe\Forms\GridField\GridFieldPrintButton;
-use SilverStripe\Headless\Model\Webhook;
+use SilverStripe\Headless\Model\IncomingWebhook;
+use SilverStripe\Headless\Model\OutgoingWebhook;
 use SilverStripe\Security\SecurityToken;
 
 class WebhooksAdmin extends ModelAdmin
@@ -34,7 +35,8 @@ class WebhooksAdmin extends ModelAdmin
      * @var array
      */
     private static $managed_models = [
-        Webhook::class,
+        IncomingWebhook::class,
+        OutgoingWebhook::class,
     ];
 
     public function getGridField(): GridField
@@ -55,7 +57,7 @@ class WebhooksAdmin extends ModelAdmin
             $this->httpError(403, 'Invalid token');
             return;
         }
-        $webhook = Webhook::get()->byID($id);
+        $webhook = OutgoingWebhook::get()->byID($id);
         if (!$webhook) {
             return $this->redirectBack();
         }

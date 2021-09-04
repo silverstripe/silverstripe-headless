@@ -10,8 +10,9 @@ use SilverStripe\Forms\GridField\GridField_ActionProvider;
 use SilverStripe\Forms\GridField\GridField_DataManipulator;
 use SilverStripe\Forms\GridField\GridField_FormAction;
 use SilverStripe\Forms\GridField\GridField_HTMLProvider;
-use SilverStripe\Headless\Model\PublishEvent;
-use SilverStripe\Headless\Model\Webhook;
+use SilverStripe\Headless\Model\OutgoingWebhook;
+use SilverStripe\Headless\Model\PublishQueueItem;
+use SilverStripe\Headless\Services\Publisher;
 use SilverStripe\ORM\SS_List;
 
 class PublishButton implements GridField_HTMLProvider, GridField_ActionProvider, GridField_DataManipulator
@@ -36,28 +37,14 @@ class PublishButton implements GridField_HTMLProvider, GridField_ActionProvider,
     public function handleAction(GridField $gridField, $actionName, $arguments, $data)
     {
         if ($actionName === 'publishqueue') {
-            $webhooks = Webhook::get()->filter([
-                'Event' => Webhook::EVENT_PUBLISH
-            ]);
-            $success = true;
-            foreach ($webhooks as $webhook) {
-                $response = $webhook->invoke();
-                $code = $response->getStatusCode();
-                if ($code < 200 || $code >= 300) {
-                    $success = false;
-                    break;
-                }
+            $webhook = OutgoingWebhook::get()->filter([
+                'Event' => OutgoingWebhook::EVENT_PUBLISH
+            ])->first();
+            if (!$webhook) {
+                return;
             }
-            $event = PublishEvent::create([
-                'Status' => $success ? PublishEvent::STATUS_SUCCESS : PublishEvent::STATUS_FAILURE,
-            ]);
-            $event->write();
-            if ($success) {
-                foreach ($gridField->getList() as $item) {
-                    $item->PublishEventID = $event->ID;
-                    $item->write();
-                }
-            }
+            $publisher = Publisher::create($webhook);
+            $publisher->publish(PublishQueueItem::getQueued());
         }
     }
 
