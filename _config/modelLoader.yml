@@ -4,7 +4,7 @@ Name: silverstripe-headless-modelloader
 SilverStripe\Headless\GraphQL\ModelLoader:
   included_dataobjects:
     page: 'Page'
-    cms: 'SilverStripe\CMS\Model\*'
+    cms: 'SilverStripe\CMS\Model\SiteTree'
     siteconfig: 'SilverStripe\SiteConfig\*'
     assets: 'SilverStripe\Assets\*'
     elemental: 'DNADesign\Elemental\Models\*'
