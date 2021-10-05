@@ -8,6 +8,7 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Core\Path;
 use SilverStripe\Headless\Model\IncomingWebhook;
 use SilverStripe\Headless\Model\PublishEvent;
+use SilverStripe\Headless\Model\PublishQueueItem;
 use SilverStripe\Headless\Services\TokenValidator;
 
 class IncomingWebhookController extends Controller
@@ -53,6 +54,10 @@ class IncomingWebhookController extends Controller
         $queued = $events->filter('Status', PublishEvent::STATUS_QUEUED)
             ->first();
 
+        $duration = time() - $queued->obj('Created')->getTimestamp();
+
+        $queued->Items()->setByIDList(PublishQueueItem::getQueued()->column());
+
         switch ($event) {
             case IncomingWebhook::EVENT_DEPLOY_START:
                 if ($queued) {
@@ -64,6 +69,7 @@ class IncomingWebhookController extends Controller
             case IncomingWebhook::EVENT_DEPLOY_SUCCESS:
                 if ($pending) {
                     $pending->Status = PublishEvent::STATUS_SUCCESS;
+                    $pending->Duration = $duration;
                     $pending->write();
                 }
                 break;
@@ -71,6 +77,7 @@ class IncomingWebhookController extends Controller
             case IncomingWebhook::EVENT_DEPLOY_FAILURE:
                 if ($pending) {
                     $pending->Status = PublishEvent::STATUS_FAILURE;
+                    $pending->Duration = $duration;
                     $pending->write();
                 }
                 break;

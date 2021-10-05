@@ -61,6 +61,9 @@ class PublishEvent extends DataObject
     public function getNiceDuration(): string
     {
         $init = $this->Duration;
+        if ($init == 0) {
+            return "--";
+        }
         $minutes = floor(($init / 60) % 60);
         $seconds = $init % 60;
         if ($minutes > 0) {

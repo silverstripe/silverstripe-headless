@@ -50,8 +50,9 @@ class Publisher
                 PublishQueueItem::class
             ));
         }
+        $isOptimistic = $this->webhook->PublishBehaviour === OutgoingWebhook::PUBLISH_OPTIMISTIC;
 
-        $status = $this->webhook->PublishBehaviour === OutgoingWebhook::PUBLISH_OPTIMISTIC
+        $status = $isOptimistic
             ? PublishEvent::STATUS_SUCCESS
             : PublishEvent::STATUS_PENDING;
 
@@ -65,7 +66,7 @@ class Publisher
             'Status' => $status,
         ]);
         $event->write();
-        if ($status === PublishEvent::STATUS_SUCCESS) {
+        if ($status !== PublishEvent::STATUS_FAILURE) {
             foreach ($items as $item) {
                 $item->PublishEventID = $event->ID;
                 $item->write();
