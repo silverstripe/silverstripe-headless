@@ -9,14 +9,14 @@ use SilverStripe\Security\Permission;
 class PublishEvent extends DataObject
 {
     const STATUS_QUEUED = 'QUEUED';
-    const STATUS_PENDING = 'PENDING';
+    const STATUS_PROGRESS = 'IN PROGRESS';
     const STATUS_SUCCESS = 'SUCCESS';
     const STATUS_FAILURE = 'FAILURE';
 
     private static $db = [
         'Duration' => 'Int',
         'Status' => "Enum(
-            '" . self::STATUS_QUEUED . "," . self::STATUS_PENDING . "," . self::STATUS_SUCCESS . "," . self::STATUS_FAILURE ."',
+            '" . self::STATUS_QUEUED . "," . self::STATUS_PROGRESS . "," . self::STATUS_SUCCESS . "," . self::STATUS_FAILURE ."',
             '" . self::STATUS_QUEUED .
         "')"
     ];

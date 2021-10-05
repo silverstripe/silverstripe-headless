@@ -54,7 +54,7 @@ class Publisher
 
         $status = $isOptimistic
             ? PublishEvent::STATUS_SUCCESS
-            : PublishEvent::STATUS_PENDING;
+            : PublishEvent::STATUS_QUEUED;
 
         $response = $this->webhook->invoke();
         $code = $response->getStatusCode();

@@ -49,7 +49,7 @@ class IncomingWebhookController extends Controller
         $event = $hook->Event;
 
         $events = PublishEvent::get()->sort('Created DESC');
-        $pending = $events->filter('Status', PublishEvent::STATUS_PENDING)
+        $progress = $events->filter('Status', PublishEvent::STATUS_PROGRESS)
             ->first();
         $queued = $events->filter('Status', PublishEvent::STATUS_QUEUED)
             ->first();
@@ -61,24 +61,24 @@ class IncomingWebhookController extends Controller
         switch ($event) {
             case IncomingWebhook::EVENT_DEPLOY_START:
                 if ($queued) {
-                    $queued->Status = PublishEvent::STATUS_PENDING;
+                    $queued->Status = PublishEvent::STATUS_PROGRESS;
                     $queued->write();
                 }
                 break;
 
             case IncomingWebhook::EVENT_DEPLOY_SUCCESS:
-                if ($pending) {
-                    $pending->Status = PublishEvent::STATUS_SUCCESS;
-                    $pending->Duration = $duration;
-                    $pending->write();
+                if ($progress) {
+                    $progress->Status = PublishEvent::STATUS_SUCCESS;
+                    $progress->Duration = $duration;
+                    $progress->write();
                 }
                 break;
 
             case IncomingWebhook::EVENT_DEPLOY_FAILURE:
-                if ($pending) {
-                    $pending->Status = PublishEvent::STATUS_FAILURE;
-                    $pending->Duration = $duration;
-                    $pending->write();
+                if ($progress) {
+                    $progress->Status = PublishEvent::STATUS_FAILURE;
+                    $progress->Duration = $duration;
+                    $progress->write();
                 }
                 break;
         }
