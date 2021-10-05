@@ -140,8 +140,10 @@ class OutgoingWebhook extends DataObject
         if ($this->UseJSON && $this->JSONPayload && $this->Method !== 'POST') {
             $result->addFieldError('UseJSON', 'JSON payloads are only allowed on POST requests');
         }
-
-        if (static::get()->filter('Event', $this->Event)->exists()) {
+        $existing = static::get()
+            ->filter('Event', $this->Event)
+            ->exclude('ID', $this->ID);
+        if ($existing->exists()) {
             $result->addFieldError('Event', 'A webhook for this event already exists.');
         }
 

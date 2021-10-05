@@ -19,7 +19,8 @@
     "unclecheese/display-logic": "~2.0",
     "sminnee/silverstripe-apikey": "dev-master",
     "symbiote/silverstripe-grouped-cms-menu": "^4",
-    "firebase/php-jwt": "^5.4"
+    "firebase/php-jwt": "^5.4",
+    "guzzlehttp/guzzle": "^7.0"
   },
   "autoload": {
     "psr-4": {
