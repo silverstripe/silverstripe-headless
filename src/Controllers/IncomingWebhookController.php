@@ -53,9 +53,8 @@ class IncomingWebhookController extends Controller
             ->first();
         $queued = $events->filter('Status', PublishEvent::STATUS_QUEUED)
             ->first();
-
-        $duration = time() - $queued->obj('Created')->getTimestamp();
-
+        
+        $duration = $progress ? (time() - $progress->obj('Created')->getTimestamp()) : 0;
         $queued->Items()->setByIDList(PublishQueueItem::getQueued()->column());
 
         switch ($event) {
