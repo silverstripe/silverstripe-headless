@@ -13,6 +13,8 @@ use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FormAction;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\Security\Permission;
+use SilverStripe\Security\Security;
 use SilverStripe\Security\SecurityToken;
 
 class HeadlessAdmin extends Controller
@@ -26,6 +28,12 @@ class HeadlessAdmin extends Controller
     protected function init()
     {
         parent::init();
+        if (!Director::isDev()) {
+            return $this->httpError(404);
+        }
+        if (!Permission::check('ADMIN')) {
+            return Security::permissionFailure($this, 'This tool requires admin permissions');
+        }
         if (Director::is_cli()) {
             throw new \RuntimeException('This tool requires a browser');
         }
