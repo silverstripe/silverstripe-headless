@@ -14,7 +14,7 @@
   ],
   "require": {
     "silverstripe/cms": "^4.4",
-    "silverstripe/graphql": "4.x-dev",
+    "silverstripe/graphql": "^4",
     "silverstripe/cms-events": "*",
     "unclecheese/display-logic": "~2.0",
     "sminnee/silverstripe-apikey": "dev-master",
